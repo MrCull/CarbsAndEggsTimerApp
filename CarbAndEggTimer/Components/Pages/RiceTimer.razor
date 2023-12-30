@@ -51,8 +51,10 @@
 </div>
 
 
-
-<MyTimer RequiredCookingTime="@requiredRiceCookingTime" />
+@if (selectedRiceType is not null)
+{
+    <MyTimer RequiredCookingTime="@requiredRiceCookingTime" />
+}
 
 @code {
     private double requiredRiceCookingTime = 0;

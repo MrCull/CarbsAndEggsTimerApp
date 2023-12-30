@@ -154,8 +154,7 @@ h1:focus {
     margin: 1px;
     font-size: 16px;
     flex: 1; /* Allow multiple buttons per row */
-    max-width: calc(50% - 0px); /* Limit to 50% width for two buttons per row */
- 
+    max-width: min(250px, 80vw);
 }
 
 .home-button img {

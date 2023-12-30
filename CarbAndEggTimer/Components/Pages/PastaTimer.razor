@@ -50,8 +50,10 @@
     </div>
 </div>
 
-
-<MyTimer RequiredCookingTime="@requiredPastaCookingTime" />
+@if (selectedPastaType is not null)
+{
+    <MyTimer RequiredCookingTime="@requiredPastaCookingTime" />
+}
 
 @code {
     private double requiredPastaCookingTime = 0;

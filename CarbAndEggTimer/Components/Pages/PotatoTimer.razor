@@ -52,8 +52,11 @@
 </div>
 
 
+@if (selectedPotatoType is not null)
+{
+    <MyTimer RequiredCookingTime="@requiredCookingTime" />
+}
 
-<MyTimer RequiredCookingTime="@requiredCookingTime" />
 @code {
     private double requiredCookingTime = 0;
 
