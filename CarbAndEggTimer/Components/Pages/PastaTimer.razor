@@ -38,12 +38,12 @@
                 </button>
             </div>
         }
-        @if (selectedPastaType is null || selectedPastaType == PastaType.Lasagne)
+        @if (selectedPastaType is null || selectedPastaType == PastaType.Fusilli)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Lasagne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Lasagne ? "active" : "")">
-                    <img src="@GetPastaImagePath(PastaType.Lasagne)" alt="Lasagne">
-                    Lasagne
+                <button @onclick="() => { selectedPastaType = PastaType.Fusilli; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Fusilli ? "active" : "")"> <!-- Changed Lasagne to Fusilli here -->
+                    <img src="@GetPastaImagePath(PastaType.Fusilli)" alt="Fusilli"> 
+                    Fusilli
                 </button>
             </div>
         }
@@ -61,7 +61,7 @@
         Spaghetti,
         Penne,
         Farfalle,
-        Lasagne
+        Fusilli // Change Lasagne to Fusilli here
     }
 
     private PastaType? selectedPastaType = null;
@@ -86,8 +86,8 @@
                 return 10; // Spaghetti cooking time in minutes
             case PastaType.Farfalle:
                 return 9; // Farfalle cooking time in minutes
-            case PastaType.Lasagne:
-                return 14; // Lasagne cooking time in minutes
+            case PastaType.Fusilli: // Change Lasagne to Fusilli here
+                return 9; // Fusilli cooking time in minutes (assuming it's the same as Lasagne)
             case PastaType.Penne:
                 return 11; // Penne cooking time in minutes
             default:
@@ -107,10 +107,11 @@
                 return "images/pasta/farfalle.png";
             case PastaType.Penne:
                 return "images/pasta/penne.png";
-            case PastaType.Lasagne:
-                return "images/pasta/lasagne.png";
+            case PastaType.Fusilli:
+                return "images/pasta/fusilli.png"; 
             default:
                 return "";
         }
     }
 }
+
