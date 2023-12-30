@@ -1,0 +1,85 @@
+﻿@page "/pasta-timer"
+@using System.Timers
+@using CarbAndEggTimer.Components.Timer
+
+<a href="/" class="back-link">
+    back
+</a>
+
+
+<div>
+    <div class="option-buttons">
+        @foreach (PastaType type in Enum.GetValues(typeof(PastaType)))
+        {
+            <button @onclick="() => { selectedPastaType = type; UpdatePastaCookingTime(); }" class="@(selectedPastaType == type ? "active" : "")">
+@*                 <img src="@GetPastaImagePath(type)" alt="@type.ToString()" style="height: 30px; width: 30px;"> *@
+                <img src="@GetPastaImagePath(type)" alt="@type.ToString()">
+                @type
+            </button>
+        }
+    </div>
+</div>
+
+<MyTimer RequiredCookingTime="@requiredPastaCookingTime" />
+
+@code {
+    private double requiredPastaCookingTime = 0;
+
+    public enum PastaType
+    {
+        Spaghetti,
+        Penne,
+        Farfalle,
+        Lasagne
+    }
+
+    private PastaType selectedPastaType = PastaType.Spaghetti;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        UpdatePastaCookingTime();
+    }
+
+    private void UpdatePastaCookingTime()
+    {
+        requiredPastaCookingTime = GetCookingTimeForPasta(selectedPastaType);
+    }
+
+    private double GetCookingTimeForPasta(PastaType type)
+    {
+        // Define cooking times for different pasta types
+        switch (type)
+        {
+            case PastaType.Spaghetti:
+                return 10; // Spaghetti cooking time in minutes
+            case PastaType.Farfalle:
+                return 9; // Farfalle cooking time in minutes
+            case PastaType.Lasagne:
+                return 14; // Lasagne cooking time in minutes
+            case PastaType.Penne:
+                return 11; // Penne cooking time in minutes
+            default:
+                return 0;
+        }
+    }
+
+
+    private string GetPastaImagePath(PastaType type)
+    {
+        // Define image paths for different pasta types
+        switch (type)
+        {
+            case PastaType.Spaghetti:
+                return "images/pasta/spaghetti.png";
+            case PastaType.Farfalle:
+                return "images/pasta/farfalle.png";
+            case PastaType.Penne:
+                return "images/pasta/penne.png";
+            case PastaType.Lasagne:
+                return "images/pasta/lasagne.png";
+            default:
+                return "";
+        }
+    }
+}

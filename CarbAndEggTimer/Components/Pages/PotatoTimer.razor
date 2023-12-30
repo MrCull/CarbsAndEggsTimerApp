@@ -1,0 +1,80 @@
+﻿@page "/potato-timer"
+@using System.Timers
+@using CarbAndEggTimer.Components.Timer
+
+<a href="/" class="back-link">
+    back
+</a>
+
+<div>
+    <label>Choose potato type:</label>
+    <div class="option-buttons">
+        @foreach (PotatoType type in Enum.GetValues(typeof(PotatoType)))
+        {
+            <button @onclick="() => { selectedPotatoType = type; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == type ? "active" : "")">
+                <img src="@GetPotatoImagePath(type)" alt="@type.ToString()">
+                @type
+            </button>
+        }
+    </div>
+</div>
+
+
+
+<MyTimer RequiredCookingTime="@requiredCookingTime" />
+@code {
+    private double requiredCookingTime = 0;
+
+    public enum PotatoType
+    {
+        Chips,
+        Roast,
+        Boiled,
+        Baked
+    }
+
+    private PotatoType selectedPotatoType = PotatoType.Chips;
+
+    // ...
+
+    private void UpdatePotatoCookingTime()
+    {
+        requiredCookingTime = GetCookingTimeForPotato(selectedPotatoType);
+    }
+
+    private double GetCookingTimeForPotato(PotatoType type)
+    {
+        // Define cooking times for different potato types
+        switch (type)
+        {
+            case PotatoType.Chips:
+                return 20; // Chips cooking time in minutes
+            case PotatoType.Roast:
+                return 30; // Roast potatoes cooking time in minutes
+            case PotatoType.Boiled:
+                return 15; // Boiled potatoes cooking time in minutes
+            case PotatoType.Baked:
+                return 40; // Baked potatoes cooking time in minutes
+            default:
+                return 0;
+        }
+    }
+
+    private string GetPotatoImagePath(PotatoType type)
+    {
+        // Define image paths for different potato types
+        switch (type)
+        {
+            case PotatoType.Chips:
+                return "images/potato/chips.png";
+            case PotatoType.Roast:
+                return "images/potato/roast.png";
+            case PotatoType.Boiled:
+                return "images/potato/boiled.png";
+            case PotatoType.Baked:
+                return "images/potato/baked.png";
+            default:
+                return "";
+        }
+    }
+}

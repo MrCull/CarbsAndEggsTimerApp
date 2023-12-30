@@ -1,0 +1,139 @@
+﻿@page "/egg-timer"
+@using System.Timers
+@using CarbAndEggTimer.Components.Timer
+
+<a href="/" class="back-link">
+    back
+</a>
+
+
+
+<div>
+    <label>Choose egg size:</label>
+    <div class="option-buttons">
+        @foreach (EggSize size in Enum.GetValues(typeof(EggSize)))
+        {
+            @*             <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="@(selectedEggSize == size ? "active" : "")">
+        <img src="@size.ToString().ToLower()@-egg.png" alt="@size.ToString()">
+        @size
+        </button> *@
+
+            <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="@(selectedEggSize == size ? "active" : "")">
+                @*                 <img src="@GetEggImagePath(size)" alt="@size.ToString()" style="height: 30px; width: 30px;"> *@
+                <img src="@GetEggImagePath(size)" alt="@size.ToString()">
+
+                @*             <img src="images/egg/small.png" alt="@size.ToString()" style="height: 30px; width: 30px;"> *@
+                @size
+            </button>
+        }
+    </div>
+</div>
+
+<div>
+    <label>Choose egg doneness:</label>
+    <div class="option-buttons">
+        @foreach (EggDoneness doneness in Enum.GetValues(typeof(EggDoneness)))
+        {
+            <button @onclick="() => { selectedDoneness = doneness; UpdateTimeRemaining(); }" class="@(selectedDoneness == doneness ? "active" : "")">
+@*                <img src="@doneness.ToString().ToLower()@-boiled-egg.png" alt="@doneness.ToString()@-boiled">*@
+                @doneness
+            </button>
+        }
+    </div>
+</div>
+
+<MyTimer RequiredCookingTime="@requiredCookingTime" />
+
+@code {
+
+    private double requiredCookingTime = 0;
+
+    public enum EggDoneness
+    {
+        Soft,
+        Medium,
+        Hard
+    }
+
+    public enum EggSize
+    {
+        Small,
+        Medium,
+        Large
+    }
+
+    private EggDoneness selectedDoneness = EggDoneness.Medium;
+    private EggSize selectedEggSize = EggSize.Medium;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        UpdateTimeRemaining();
+    }
+
+    private void UpdateTimeRemaining()
+    {
+        requiredCookingTime = GetMinsForDoneness(selectedDoneness) * GetFactorForSize(selectedEggSize);
+    }
+
+    private int GetMinsForDoneness(EggDoneness doneness)
+    {
+        switch (doneness)
+        {
+            case EggDoneness.Soft:
+                return 4;
+            case EggDoneness.Medium:
+                return 6;
+            case EggDoneness.Hard:
+                return 9;
+            default:
+                return 0;
+        }
+    }
+
+    private double GetFactorForSize(EggSize size)
+    {
+        switch (size)
+        {
+            case EggSize.Small:
+                return 0.9;
+            case EggSize.Medium:
+                return 1;
+            case EggSize.Large:
+                return 1.1;
+            default:
+                return 0;
+        }
+    }
+
+    private string GetEggImagePath(EggSize size)
+    {
+        switch (size)
+        {
+            case EggSize.Small:
+                return "images/egg/small.png";
+            case EggSize.Medium:
+                return "images/egg/medium.png";
+            case EggSize.Large:
+                return "images/egg/large.png";
+            default:
+                return "";
+        }
+    }
+
+    private string GetDonenessImagePath(EggDoneness doneness)
+    {
+        switch (doneness)
+        {
+            case EggDoneness.Soft:
+                return "images/egg/soft-boiled-egg.png";
+            case EggDoneness.Medium:
+                return "images/egg/medium-boiled-egg.png";
+            case EggDoneness.Hard:
+                return "images/egg/hard-boiled-egg.png";
+            default:
+                return "";
+        }
+    }
+}
+            

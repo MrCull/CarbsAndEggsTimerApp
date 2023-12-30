@@ -1,0 +1,80 @@
+﻿@page "/rice-timer"
+@using System.Timers
+@using CarbAndEggTimer.Components.Timer
+
+<a href="/" class="back-link">
+    back
+</a>
+
+<div>
+    <label>Choose rice type:</label>
+    <div class="option-buttons">
+        @foreach (RiceType type in Enum.GetValues(typeof(RiceType)))
+        {
+            <button @onclick="() => { selectedRiceType = type; UpdateRiceCookingTime(); }" class="@(selectedRiceType == type ? "active" : "")">
+                <img src="@GetRiceImagePath(type)" alt="@type.ToString()">
+                @type
+            </button>
+        }
+    </div>
+</div>
+
+
+<MyTimer RequiredCookingTime="@requiredRiceCookingTime" />
+
+@code {
+    private double requiredRiceCookingTime = 0;
+
+    public enum RiceType
+    {
+        Basmati,
+        Jasmine,
+        Brown,
+        Sushi
+    }
+
+    private RiceType selectedRiceType = RiceType.Basmati;
+
+    // ...
+
+    private void UpdateRiceCookingTime()
+    {
+        requiredRiceCookingTime = GetCookingTimeForRice(selectedRiceType);
+    }
+
+    private double GetCookingTimeForRice(RiceType type)
+    {
+        // Define cooking times for different rice types
+        switch (type)
+        {
+            case RiceType.Basmati:
+                return 15; // Basmati Rice cooking time in minutes
+            case RiceType.Jasmine:
+                return 18; // Jasmine Rice cooking time in minutes
+            case RiceType.Brown:
+                return 20; // Brown Rice cooking time in minutes
+            case RiceType.Sushi:
+                return 12; // Sushi Rice cooking time in minutes
+            default:
+                return 0;
+        }
+    }
+
+    private string GetRiceImagePath(RiceType type)
+    {
+        // Define image paths for different rice types
+        switch (type)
+        {
+            case RiceType.Basmati:
+                return "images/rice/basmati.png";
+            case RiceType.Jasmine:
+                return "images/rice/jasmine.png";
+            case RiceType.Brown:
+                return "images/rice/brown.png";
+            case RiceType.Sushi:
+                return "images/rice/sushi.png";
+            default:
+                return "";
+        }
+    }
+}

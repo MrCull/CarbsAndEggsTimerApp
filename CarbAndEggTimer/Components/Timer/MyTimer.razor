@@ -1,0 +1,98 @@
+﻿@page "/mytimer"
+
+<button @onclick="StartTimer">Start</button>
+
+<div>
+    Time remaining: @timeRemaining.ToString(@"mm\:ss")
+</div>
+@if (timerStarted)
+{
+    <button @onclick="PauseTimer">Pause</button>
+    <button @onclick="ResetTimer">Reset</button>
+}
+
+
+@code {
+    [Parameter]
+    public double requiredCookingTime { get; set; } = 0;
+
+    private bool timerStarted = false;
+    private TimeSpan timeRemaining;
+    private System.Timers.Timer timer = new System.Timers.Timer();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        timer = new System.Timers.Timer(1000);
+        timer.Elapsed += OnTimerElapsed;
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        UpdateTimeRemaining();
+    }
+
+    private void StartTimer()
+    {
+        timerStarted = true;
+
+        // Set initial timeRemaining based on selectedDoneness and selectedEggSize
+        // int baseTime = GetMinsForDoneness(selectedDoneness);
+
+        // double sizeFactor = GetFactorForSize(selectedEggSize);
+
+        // double totalTime = baseTime * sizeFactor;
+        //       timeRemaining = TimeSpan.FromMinutes(requiredCookingTime);
+
+        // Create and start the timer
+
+        timer.Start();
+    }
+
+
+    private void UpdateTimeRemaining()
+    {
+        timeRemaining = TimeSpan.FromMinutes(requiredCookingTime);
+        StateHasChanged();
+    }
+
+    private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
+    {
+        if (timeRemaining > TimeSpan.Zero)
+        {
+            timeRemaining -= TimeSpan.FromSeconds(1);
+            InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            timer.Stop();
+            // Notify the user that the timer has finished
+            Console.WriteLine("Timer finished!");
+        }
+    }
+
+    private void PauseTimer()
+    {
+        if (timer.Enabled)
+        {
+            timer.Stop();
+        }
+        else
+        {
+            timer.Start();
+        }
+    }
+
+    private void ResetTimer()
+    {
+        timer.Stop();
+        UpdateTimeRemaining();
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
+    }
+}

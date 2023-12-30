@@ -1,0 +1,68 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+
+<h1>Egg & Carb Timer</h1>
+
+@* <div class="timer-buttons">
+    <button @onclick="() => GoToTimer(TimerType.Egg)" class="timer-button">Boiled Eggs</button>
+    <button @onclick="() => GoToTimer(TimerType.Rice)" class="timer-button">Rice</button>
+    <button @onclick="() => GoToTimer(TimerType.Pasta)" class="timer-button">Pasta</button>
+    <button @onclick="() => GoToTimer(TimerType.Potatoes)" class="timer-button">Potatoes</button>
+</div> *@
+
+
+<div class="timer-buttons">
+    <button @onclick="() => GoToTimer(TimerType.Egg)" class="timer-button">
+        <img src="images/egg/egg.png" alt="Egg Timer">
+        Boiled Eggs
+    </button>
+    <button @onclick="() => GoToTimer(TimerType.Rice)" class="timer-button">
+        <img src="images/rice/rice.png" alt="Rice Timer">
+        Rice
+    </button>
+    <button @onclick="() => GoToTimer(TimerType.Pasta)" class="timer-button">
+        <img src="images/pasta/pasta.png" alt="Pasta Timer">
+        Pasta
+    </button>
+    <button @onclick="() => GoToTimer(TimerType.Potatoes)" class="timer-button">
+        <img src="images/potato/potato.png" alt="Potato Timer">
+        Potatoes
+    </button>
+</div>
+
+
+
+@code {
+    enum TimerType
+    {
+        Egg,
+        Rice,
+        Pasta,
+        Potatoes
+    };
+
+    private void GoToTimer(TimerType timerType)
+    {
+
+        if (timerType == TimerType.Egg)
+        {
+            Navigation.NavigateTo("/egg-timer");
+        }
+        else if (timerType == TimerType.Rice)
+        {
+            Navigation.NavigateTo("/rice-timer");
+        }
+        else if (timerType == TimerType.Pasta)
+        {
+            Navigation.NavigateTo("/pasta-timer");
+        }
+        else if (timerType == TimerType.Potatoes)
+        {
+            Navigation.NavigateTo("/potato-timer");
+        }
+        else
+        {
+            throw new Exception("Unknown timer type");
+        }
+    }
+}
