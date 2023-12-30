@@ -26,11 +26,16 @@
     }*/
 
 
-
 /* Timer buttons container */
 .timer-buttons {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; /* Display buttons in a column */
+    gap: 1rem;
+}
+
+/* Button rows */
+.button-row {
+    display: flex;
     justify-content: center;
     gap: 1rem;
 }

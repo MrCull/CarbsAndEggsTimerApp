@@ -2,23 +2,24 @@
 @inject NavigationManager Navigation
 
 <div class="timer-buttons">
-    <button @onclick="() => GoToTimer(TimerType.Egg)" class="timer-button">
-        <img src="images/home/egg.png" alt="Egg Timer">
-@*         Boiled Eggs *@
-    </button>
-    <button @onclick="() => GoToTimer(TimerType.Rice)" class="timer-button">
-        <img src="images/home/rice.png" alt="Rice Timer">
-@*         Rice *@
-    </button>
-    <button @onclick="() => GoToTimer(TimerType.Pasta)" class="timer-button">
-        <img src="images/home/pasta.png" alt="Pasta Timer">
-@*         Pasta *@
-    </button>
-    <button @onclick="() => GoToTimer(TimerType.Potatoes)" class="timer-button">
-        <img src="images/home/potato.png" alt="Potato Timer">
-@*         Potatoes *@
-    </button>
+    <div class="button-row">
+        <button @onclick="() => GoToTimer(TimerType.Egg)" class="timer-button">
+            <img src="images/home/egg.png" alt="Egg Timer">
+        </button>
+        <button @onclick="() => GoToTimer(TimerType.Rice)" class="timer-button">
+            <img src="images/home/rice.png" alt="Rice Timer">
+        </button>
+    </div>
+    <div class="button-row">
+        <button @onclick="() => GoToTimer(TimerType.Pasta)" class="timer-button">
+            <img src="images/home/pasta.png" alt="Pasta Timer">
+        </button>
+        <button @onclick="() => GoToTimer(TimerType.Potatoes)" class="timer-button">
+            <img src="images/home/potato.png" alt="Potato Timer">
+        </button>
+    </div>
 </div>
+
 
 
 
