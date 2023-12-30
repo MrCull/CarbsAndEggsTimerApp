@@ -1,10 +1,11 @@
 ﻿@page "/mytimer"
 
+<div class="time-remaining text-center @(GetTimeRemainingClass())">
+    <span class="timer-countdown">@FormatTimeRemaining(timeRemaining)</span>
+</div>
+
 @if (!timerFinished)
 {
-    <div class="time-remaining text-center @(GetTimeRemainingClass())">
-        <span class="timer-countdown">@timeRemaining.ToString(@"mm\:ss")</span>
-    </div>
 
     <div class="timer-buttons">
 
@@ -103,23 +104,11 @@ else
 
     private void ClockTicked(object? sender, System.Timers.ElapsedEventArgs e)
     {
-        if (timeRemaining > TimeSpan.Zero)
-        {
-            timeRemaining -= TimeSpan.FromSeconds(1);
-            InvokeAsync(StateHasChanged);
-        }
-        else
-        {
-            oneSecondTimer.Stop();
+        timeRemaining -= TimeSpan.FromSeconds(1);
 
-            // Notify the user that the timer has finished
-            Console.WriteLine("Timer finished!");
-
-            // Play a sound
-            // using (var player = new SoundPlayer("path_to_your_sound_file.wav"))
-            // {
-            //     player.Play();
-            // }
+        if (timeRemaining <= TimeSpan.Zero)
+        {
+            //oneSecondTimer.Stop();
 
             // Vibrate the phone
             try
@@ -135,8 +124,8 @@ else
 
             // Set the timerFinished flag to true
             timerFinished = true;
-            InvokeAsync(StateHasChanged);
         }
+        InvokeAsync(StateHasChanged);
     }
 
 
@@ -177,6 +166,7 @@ else
 
         // Reset the timerFinished flag
         timerFinished = false;
+        oneSecondTimer.Stop();
         ResetTimer();
     }
 
@@ -187,17 +177,40 @@ else
         {
             return "grey-text";
         }
-        if (timeRemaining.TotalSeconds > 60)
+        if (timeRemaining.TotalSeconds > 10)
         {
-            return "green-text"; // Add your class name for over 1 minute
+            return "black-text"; 
         }
-        else if (timeRemaining.TotalSeconds > 10)
+        else if (timeRemaining.TotalSeconds > 0)
         {
-            return "orange-text"; // Add your class name for less than 1 minute
+            return "orange-text"; 
+        }
+        else if (timeRemaining.TotalSeconds > -10)
+        {
+            return "green-text";
         }
         else
         {
-            return "red-text"; // Add your class name for less than 10 seconds
+            return "red-text";
+        }
+    }
+
+    private string FormatTimeRemaining(TimeSpan time)
+    {
+        if (time.TotalSeconds < -10)
+        {
+            // If time is negative, display it as a negative value
+            return "-" + time.Duration().ToString(@"mm\:ss");
+        }
+        else if (time.TotalSeconds < 1)
+        {
+            // If time is negative, display it as a negative value
+            return "00:00";
+        }
+        else
+        {
+            // Display positive time normally
+            return time.ToString(@"mm\:ss");
         }
     }
 

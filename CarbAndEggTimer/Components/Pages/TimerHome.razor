@@ -1,20 +1,20 @@
 ﻿@page "/"
 @inject NavigationManager Navigation
 
-<div class="timer-buttons">
-    <div class="button-row">
-        <button @onclick="() => GoToTimer(TimerType.Egg)" class="timer-button">
+<div class="home-buttons">
+    <div class="home-button-row">
+        <button @onclick="() => GoToTimer(TimerType.Egg)" class="home-button">
             <img src="images/home/egg.png" alt="Egg Timer">
         </button>
-        <button @onclick="() => GoToTimer(TimerType.Rice)" class="timer-button">
+        <button @onclick="() => GoToTimer(TimerType.Rice)" class="home-button">
             <img src="images/home/rice.png" alt="Rice Timer">
         </button>
     </div>
-    <div class="button-row">
-        <button @onclick="() => GoToTimer(TimerType.Pasta)" class="timer-button">
+    <div class="home-button-row">
+        <button @onclick="() => GoToTimer(TimerType.Pasta)" class="home-button">
             <img src="images/home/pasta.png" alt="Pasta Timer">
         </button>
-        <button @onclick="() => GoToTimer(TimerType.Potatoes)" class="timer-button">
+        <button @onclick="() => GoToTimer(TimerType.Potatoes)" class="home-button">
             <img src="images/home/potato.png" alt="Potato Timer">
         </button>
     </div>
