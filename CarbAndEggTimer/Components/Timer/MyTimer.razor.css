@@ -114,3 +114,35 @@ audio {
 .flash-animation {
     animation: flash 1s infinite; /* 1s duration, infinite loop */
 }
+
+
+
+
+
+
+
+
+
+
+
+.animated-boil-background {
+/*    position: fixed;
+*/    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/Timer/boil.gif'); /* Replace with your boiling water image */
+    background-size: auto;
+    animation: boil 0.5s infinite alternate; /* Adjust the animation duration as needed */
+    z-index: -1;
+}
+
+@keyframes boil {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.02);
+    }
+}

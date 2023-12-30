@@ -1,55 +1,56 @@
 ﻿@page "/mytimer"
 
-<div class="time-remaining text-center @(GetTimeRemainingClass())">
-    <span class="timer-countdown">@FormatTimeRemaining(timeRemaining)</span>
-</div>
 
-@if (!timerFinished)
-{
+<div class="@GetBackground()">
+    <div class="time-remaining text-center @(GetTimeRemainingClass())">
+        <span class="timer-countdown">@FormatTimeRemaining(timeRemaining)</span>
+    </div>
 
-    <div class="timer-buttons">
 
-        <div class="button-row">
-            <div class="col-md-12 text-center">
+    @if (!timerFinished)
+    {
+
+        <div class="timer-buttons">
+
+            <div class="button-row">
+                <div class="col-md-12 text-center">
+                    @if (timerStarted)
+                    {
+                        <button @onclick="PauseTimer" class="timer-button pause-button">Pause</button>
+                    }
+                    else
+                    {
+                        <button @onclick="StartTimer" class="timer-button start-button">Start Cooking !!</button>
+                    }
+
+                </div>
                 @if (timerStarted)
                 {
-                    <button @onclick="PauseTimer" class="timer-button pause-button">Pause</button>
-                }
-                else
-                {
-                    <button @onclick="StartTimer" class="timer-button start-button">Start Cooking !!</button>
-                }
-
-            </div>
-            @if (timerStarted)
-            {
-                <div class="button-row">
-                    <div class="col-md-6 text-center">
-                        <!-- Center the Reset button -->
-                        <button @onclick="ResetTimer" class="timer-button reset-button">Reset</button>
+                    <div class="button-row">
+                        <div class="col-md-6 text-center">
+                            <!-- Center the Reset button -->
+                            <button @onclick="ResetTimer" class="timer-button reset-button">Reset</button>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
-    </div>
-}
-else
-{
-    <div class="timer-buttons">
-        <div class="button-row">
-            <div class="col-md-12 text-center">
-                <!-- Center the Time's Up button and add animation class -->
-                <button @onclick="AcknowledgeTimer" class="timer-button acknowledge-button flash-animation">Time's up!</button>
+                }
             </div>
         </div>
-        <audio controls loop autoplay hidden>
-            <source src="sounds/beep.wav" type="audio/wav" />
-        </audio>
-    </div>
-
-
-}
-
+    }
+    else
+    {
+        <div class="timer-buttons">
+            <div class="button-row">
+                <div class="col-md-12 text-center">
+                    <!-- Center the Time's Up button and add animation class -->
+                    <button @onclick="AcknowledgeTimer" class="timer-button acknowledge-button flash-animation">Time's up!</button>
+                </div>
+            </div>
+            <audio controls loop autoplay hidden>
+                <source src="sounds/beep.wav" type="audio/wav" />
+            </audio>
+        </div>
+    }
+</div>
 
 
 @code {
@@ -214,5 +215,8 @@ else
         }
     }
 
+    private string GetBackground()
+        => timerStarted ? "animated-boil-background" : "";
+    
 
 }
