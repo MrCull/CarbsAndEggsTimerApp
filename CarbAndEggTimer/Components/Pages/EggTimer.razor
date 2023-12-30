@@ -9,21 +9,13 @@
 
 
 <div>
-    <label>Choose egg size:</label>
     <div class="option-buttons">
         @foreach (EggSize size in Enum.GetValues(typeof(EggSize)))
         {
-            @*             <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="@(selectedEggSize == size ? "active" : "")">
-        <img src="@size.ToString().ToLower()@-egg.png" alt="@size.ToString()">
-        @size
-        </button> *@
 
             <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="@(selectedEggSize == size ? "active" : "")">
-                @*                 <img src="@GetEggImagePath(size)" alt="@size.ToString()" style="height: 30px; width: 30px;"> *@
                 <img src="@GetEggImagePath(size)" alt="@size.ToString()">
-
-                @*             <img src="images/egg/small.png" alt="@size.ToString()" style="height: 30px; width: 30px;"> *@
-                @size
+@size
             </button>
         }
     </div>

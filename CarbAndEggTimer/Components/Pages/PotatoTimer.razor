@@ -6,18 +6,42 @@
     back
 </a>
 
+
 <div>
-    <label>Choose potato type:</label>
+
     <div class="option-buttons">
-        @foreach (PotatoType type in Enum.GetValues(typeof(PotatoType)))
-        {
-            <button @onclick="() => { selectedPotatoType = type; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == type ? "active" : "")">
-                <img src="@GetPotatoImagePath(type)" alt="@type.ToString()">
-                @type
-            </button>
-        }
+        <div class="row">
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Chips ? "active" : "")">
+                    <img src="images/potato/chips.png" alt="Chips">
+                    Chips
+                </button>
+            </div>
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Roast ? "active" : "")">
+                    <img src="images/potato/roast.png" alt="Roast">
+                    Roast
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
+                    <img src="images/potato/boiled.png" alt="Boiled">
+                    Boiled
+                </button>
+            </div>
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Baked ? "active" : "")">
+                    <img src="images/potato/baked.png" alt="Baked">
+                    Baked
+                </button>
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 
 

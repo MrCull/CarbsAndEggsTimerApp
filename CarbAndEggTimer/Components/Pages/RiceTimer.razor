@@ -7,15 +7,31 @@
 </a>
 
 <div>
-    <label>Choose rice type:</label>
-    <div class="option-buttons">
-        @foreach (RiceType type in Enum.GetValues(typeof(RiceType)))
-        {
-            <button @onclick="() => { selectedRiceType = type; UpdateRiceCookingTime(); }" class="@(selectedRiceType == type ? "active" : "")">
-                <img src="@GetRiceImagePath(type)" alt="@type.ToString()">
-                @type
+    <div class="option-buttons row">
+        <div class="col-md-6">
+            <button @onclick="() => { selectedRiceType = RiceType.Basmati; UpdateRiceCookingTime(); }" class="@(selectedRiceType == RiceType.Basmati ? "active" : "")">
+                <img src="@GetRiceImagePath(RiceType.Basmati)" alt="Basmati">
+                Basmati
             </button>
-        }
+        </div>
+        <div class="col-md-6">
+            <button @onclick="() => { selectedRiceType = RiceType.Jasmine; UpdateRiceCookingTime(); }" class="@(selectedRiceType == RiceType.Jasmine ? "active" : "")">
+                <img src="@GetRiceImagePath(RiceType.Jasmine)" alt="Jasmine">
+                Jasmine
+            </button>
+        </div>
+        <div class="col-md-6">
+            <button @onclick="() => { selectedRiceType = RiceType.Brown; UpdateRiceCookingTime(); }" class="@(selectedRiceType == RiceType.Brown ? "active" : "")">
+                <img src="@GetRiceImagePath(RiceType.Brown)" alt="Brown">
+                Brown
+            </button>
+        </div>
+        <div class="col-md-6">
+            <button @onclick="() => { selectedRiceType = RiceType.Sushi; UpdateRiceCookingTime(); }" class="@(selectedRiceType == RiceType.Sushi ? "active" : "")">
+                <img src="@GetRiceImagePath(RiceType.Sushi)" alt="Sushi">
+                Sushi
+            </button>
+        </div>
     </div>
 </div>
 

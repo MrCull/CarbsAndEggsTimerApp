@@ -9,16 +9,37 @@
 
 <div>
     <div class="option-buttons">
-        @foreach (PastaType type in Enum.GetValues(typeof(PastaType)))
-        {
-            <button @onclick="() => { selectedPastaType = type; UpdatePastaCookingTime(); }" class="@(selectedPastaType == type ? "active" : "")">
-@*                 <img src="@GetPastaImagePath(type)" alt="@type.ToString()" style="height: 30px; width: 30px;"> *@
-                <img src="@GetPastaImagePath(type)" alt="@type.ToString()">
-                @type
-            </button>
-        }
+        <div class="row">
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Spaghetti)" alt="Spaghetti">
+                    Spaghetti
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Penne ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Penne)" alt="Penne">
+                    Penne
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Farfalle ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Farfalle)" alt="Farfalle">
+                    Farfalle
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Lasagne; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Lasagne ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Lasagne)" alt="Lasagne">
+                    Lasagne
+                </button>
+            </div>
+        </div>
     </div>
 </div>
+
 
 <MyTimer RequiredCookingTime="@requiredPastaCookingTime" />
 
