@@ -16,7 +16,7 @@
 else
 {
     <button @onclick="AcknowledgeTimer" class="acknowledge-button">Time's up!</button>
-    <audio controls>
+    <audio controls loop autoplay hidden>
         <source src="sounds/beep.wav" type="audio/wav" />
     </audio>
 }
@@ -81,16 +81,15 @@ else
         else
         {
             oneSecondTimer.Stop();
-            timerFinished = true;
 
             // Notify the user that the timer has finished
             Console.WriteLine("Timer finished!");
 
             // Play a sound
-            using (var player = new SoundPlayer("path_to_your_sound_file.wav"))
-            {
-                player.Play();
-            }
+            // using (var player = new SoundPlayer("path_to_your_sound_file.wav"))
+            // {
+            //     player.Play();
+            // }
 
             // Vibrate the phone
             try
@@ -106,6 +105,7 @@ else
 
             // Set the timerFinished flag to true
             timerFinished = true;
+            InvokeAsync(StateHasChanged);
         }
     }
 
@@ -138,7 +138,7 @@ else
     private void AcknowledgeTimer()
     {
         // Stop the vibration
-        Vibration.Cancel();
+//        Vibration.Cancel()
 
         // Stop the sound (optional, if needed)
         // Note: Stopping the sound may not be straightforward and depends on the specific sound player you're using
