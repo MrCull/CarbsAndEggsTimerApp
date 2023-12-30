@@ -6,42 +6,36 @@
     back
 </a>
 
-
-<div>
-
-    <div class="option-buttons">
-        <div class="row">
-            <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Chips ? "active" : "")">
-                    <img src="images/potato/chips.png" alt="Chips">
-                    Chips
-                </button>
-            </div>
-            <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Roast ? "active" : "")">
-                    <img src="images/potato/roast.png" alt="Roast">
-                    Roast
-                </button>
-            </div>
+<div class="timer-buttons">
+    <div class="button-row">
+        <div class="col">
+            <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Chips ? "active" : "")">
+                <img src="images/potato/chips.png" alt="Chips">
+                Chips
+            </button>
         </div>
-        <div class="row">
-            <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
-                    <img src="images/potato/boiled.png" alt="Boiled">
-                    Boiled
-                </button>
-            </div>
-            <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="@(selectedPotatoType == PotatoType.Baked ? "active" : "")">
-                    <img src="images/potato/baked.png" alt="Baked">
-                    Baked
-                </button>
-            </div>
+        <div class="col">
+            <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Roast ? "active" : "")">
+                <img src="images/potato/roast.png" alt="Roast">
+                Roast
+            </button>
+        </div>
+    </div>
+    <div class="button-row">
+        <div class="col">
+            <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
+                <img src="images/potato/boiled.png" alt="Boiled">
+                Boiled
+            </button>
+        </div>
+        <div class="col">
+            <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Baked ? "active" : "")">
+                <img src="images/potato/baked.png" alt="Baked">
+                Baked
+            </button>
         </div>
     </div>
 </div>
-
-
 
 
 

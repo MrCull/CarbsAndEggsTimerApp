@@ -5,37 +5,33 @@
 <a href="/" class="back-link">
     back
 </a>
-
-
-<div>
-    <div class="option-buttons">
-        <div class="row">
-            <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
-                    <img src="@GetPastaImagePath(PastaType.Spaghetti)" alt="Spaghetti">
-                    Spaghetti
-                </button>
-            </div>
-            <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Penne ? "active" : "")">
-                    <img src="@GetPastaImagePath(PastaType.Penne)" alt="Penne">
-                    Penne
-                </button>
-            </div>
+<div class="timer-buttons">
+    <div class="button-row">
+        <div class="col-md-6">
+            <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
+                <img src="@GetPastaImagePath(PastaType.Spaghetti)" alt="Spaghetti">
+                Spaghetti
+            </button>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Farfalle ? "active" : "")">
-                    <img src="@GetPastaImagePath(PastaType.Farfalle)" alt="Farfalle">
-                    Farfalle
-                </button>
-            </div>
-            <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Lasagne; UpdatePastaCookingTime(); }" class="@(selectedPastaType == PastaType.Lasagne ? "active" : "")">
-                    <img src="@GetPastaImagePath(PastaType.Lasagne)" alt="Lasagne">
-                    Lasagne
-                </button>
-            </div>
+        <div class="col-md-6">
+            <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Penne ? "active" : "")">
+                <img src="@GetPastaImagePath(PastaType.Penne)" alt="Penne">
+                Penne
+            </button>
+        </div>
+    </div>
+    <div class="button-row">
+        <div class="col-md-6">
+            <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Farfalle ? "active" : "")">
+                <img src="@GetPastaImagePath(PastaType.Farfalle)" alt="Farfalle">
+                Farfalle
+            </button>
+        </div>
+        <div class="col-md-6">
+            <button @onclick="() => { selectedPastaType = PastaType.Lasagne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Lasagne ? "active" : "")">
+                <img src="@GetPastaImagePath(PastaType.Lasagne)" alt="Lasagne">
+                Lasagne
+            </button>
         </div>
     </div>
 </div>
