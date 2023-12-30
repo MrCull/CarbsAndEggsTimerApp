@@ -5,34 +5,48 @@
 <a href="/" class="back-link">
     back
 </a>
+
+
 <div class="timer-buttons">
     <div class="button-row">
-        <div class="col-md-6">
-            <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
-                <img src="@GetPastaImagePath(PastaType.Spaghetti)" alt="Spaghetti">
-                Spaghetti
-            </button>
-        </div>
-        <div class="col-md-6">
-            <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Penne ? "active" : "")">
-                <img src="@GetPastaImagePath(PastaType.Penne)" alt="Penne">
-                Penne
-            </button>
-        </div>
+        @if (selectedPastaType is null || selectedPastaType == PastaType.Spaghetti)
+        {
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Spaghetti)" alt="Spaghetti">
+                    Spaghetti
+                </button>
+            </div>
+        }
+        @if (selectedPastaType is null || selectedPastaType == PastaType.Penne)
+        {
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Penne ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Penne)" alt="Penne">
+                    Penne
+                </button>
+            </div>
+        }
     </div>
     <div class="button-row">
-        <div class="col-md-6">
-            <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Farfalle ? "active" : "")">
-                <img src="@GetPastaImagePath(PastaType.Farfalle)" alt="Farfalle">
-                Farfalle
-            </button>
-        </div>
-        <div class="col-md-6">
-            <button @onclick="() => { selectedPastaType = PastaType.Lasagne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Lasagne ? "active" : "")">
-                <img src="@GetPastaImagePath(PastaType.Lasagne)" alt="Lasagne">
-                Lasagne
-            </button>
-        </div>
+        @if (selectedPastaType is null || selectedPastaType == PastaType.Farfalle)
+        {
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Farfalle ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Farfalle)" alt="Farfalle">
+                    Farfalle
+                </button>
+            </div>
+        }
+        @if (selectedPastaType is null || selectedPastaType == PastaType.Lasagne)
+        {
+            <div class="col-md-6">
+                <button @onclick="() => { selectedPastaType = PastaType.Lasagne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Lasagne ? "active" : "")">
+                    <img src="@GetPastaImagePath(PastaType.Lasagne)" alt="Lasagne">
+                    Lasagne
+                </button>
+            </div>
+        }
     </div>
 </div>
 
@@ -50,7 +64,7 @@
         Lasagne
     }
 
-    private PastaType selectedPastaType = PastaType.Spaghetti;
+    private PastaType? selectedPastaType = null;
 
     protected override void OnInitialized()
     {
@@ -63,7 +77,7 @@
         requiredPastaCookingTime = GetCookingTimeForPasta(selectedPastaType);
     }
 
-    private double GetCookingTimeForPasta(PastaType type)
+    private double GetCookingTimeForPasta(PastaType? type)
     {
         // Define cooking times for different pasta types
         switch (type)
@@ -82,7 +96,7 @@
     }
 
 
-    private string GetPastaImagePath(PastaType type)
+    private string GetPastaImagePath(PastaType? type)
     {
         // Define image paths for different pasta types
         switch (type)

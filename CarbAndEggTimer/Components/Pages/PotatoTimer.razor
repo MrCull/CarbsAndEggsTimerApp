@@ -8,32 +8,46 @@
 
 <div class="timer-buttons">
     <div class="button-row">
-        <div class="col">
-            <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Chips ? "active" : "")">
-                <img src="images/potato/chips.png" alt="Chips">
-                Chips
-            </button>
-        </div>
-        <div class="col">
-            <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Roast ? "active" : "")">
-                <img src="images/potato/roast.png" alt="Roast">
-                Roast
-            </button>
-        </div>
+        @if (selectedPotatoType is null || selectedPotatoType== PotatoType.Chips)
+        {
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Chips ? "active" : "")">
+                    <img src="images/potato/chips.png" alt="Chips">
+                    Chips
+                </button>
+            </div>
+        }
+        @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Roast)
+        {
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Roast ? "active" : "")">
+                    <img src="images/potato/roast.png" alt="Roast">
+                    Roast
+                </button>
+            </div>
+        }
     </div>
     <div class="button-row">
-        <div class="col">
-            <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
-                <img src="images/potato/boiled.png" alt="Boiled">
-                Boiled
-            </button>
-        </div>
-        <div class="col">
-            <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Baked ? "active" : "")">
-                <img src="images/potato/baked.png" alt="Baked">
-                Baked
-            </button>
-        </div>
+        @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Boiled)
+        {
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
+                    <img src="images/potato/boiled.png" alt="Boiled">
+                    Boiled
+                </button>
+            </div>
+        }
+        
+        @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Baked)
+        {
+            <div class="col">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Baked ? "active" : "")">
+                    <img src="images/potato/baked.png" alt="Baked">
+                    Baked
+                </button>
+            </div>
+        }
+
     </div>
 </div>
 
@@ -51,7 +65,7 @@
         Baked
     }
 
-    private PotatoType selectedPotatoType = PotatoType.Chips;
+    private PotatoType? selectedPotatoType = null;
 
     // ...
 
@@ -60,7 +74,7 @@
         requiredCookingTime = GetCookingTimeForPotato(selectedPotatoType);
     }
 
-    private double GetCookingTimeForPotato(PotatoType type)
+    private double GetCookingTimeForPotato(PotatoType? type)
     {
         // Define cooking times for different potato types
         switch (type)
@@ -78,7 +92,7 @@
         }
     }
 
-    private string GetPotatoImagePath(PotatoType type)
+    private string GetPotatoImagePath(PotatoType? type)
     {
         // Define image paths for different potato types
         switch (type)

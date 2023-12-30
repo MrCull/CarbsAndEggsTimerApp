@@ -1,31 +1,42 @@
 ﻿@page "/mytimer"
 
-<button @onclick="StartTimer">Start</button>
-
-<div>
-    Time remaining: @timeRemaining.ToString(@"mm\:ss")
-</div>
-@if (timerStarted)
+@if (!timerFinished)
 {
-    <button @onclick="PauseTimer">Pause</button>
-    <button @onclick="ResetTimer">Reset</button>
-}
+    <button @onclick="StartTimer">Start</button>
 
+    <div>
+        Time remaining: @timeRemaining.ToString(@"mm\:ss")
+    </div>
+    @if (timerStarted)
+    {
+        <button @onclick="PauseTimer">Pause</button>
+        <button @onclick="ResetTimer">Reset</button>
+    }
+}
+else
+{
+    <button @onclick="AcknowledgeTimer" class="acknowledge-button">Time's up!</button>
+    <audio controls>
+        <source src="sounds/beep.wav" type="audio/wav" />
+    </audio>
+}
 
 @code {
     [Parameter]
     public double requiredCookingTime { get; set; } = 0;
 
     private bool timerStarted = false;
+    private bool timerFinished = false;
+
     private TimeSpan timeRemaining;
-    private System.Timers.Timer timer = new System.Timers.Timer();
+    private System.Timers.Timer oneSecondTimer = new System.Timers.Timer();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        timer = new System.Timers.Timer(1000);
-        timer.Elapsed += OnTimerElapsed;
+        oneSecondTimer = new System.Timers.Timer(1000);
+        oneSecondTimer.Elapsed += ClockTicked;
     }
 
     protected override void OnParametersSet()
@@ -37,6 +48,8 @@
     private void StartTimer()
     {
         timerStarted = true;
+        timerFinished = false;
+
 
         // Set initial timeRemaining based on selectedDoneness and selectedEggSize
         // int baseTime = GetMinsForDoneness(selectedDoneness);
@@ -48,7 +61,7 @@
 
         // Create and start the timer
 
-        timer.Start();
+        oneSecondTimer.Start();
     }
 
 
@@ -58,7 +71,7 @@
         StateHasChanged();
     }
 
-    private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
+    private void ClockTicked(object? sender, System.Timers.ElapsedEventArgs e)
     {
         if (timeRemaining > TimeSpan.Zero)
         {
@@ -67,32 +80,74 @@
         }
         else
         {
-            timer.Stop();
+            oneSecondTimer.Stop();
+            timerFinished = true;
+
             // Notify the user that the timer has finished
             Console.WriteLine("Timer finished!");
+
+            // Play a sound
+            using (var player = new SoundPlayer("path_to_your_sound_file.wav"))
+            {
+                player.Play();
+            }
+
+            // Vibrate the phone
+            try
+            {
+                // Vibrate for 1 second (1000 milliseconds)
+                Vibration.Vibrate(TimeSpan.FromMilliseconds(1000));
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Handle the exception if vibration is not supported on the device
+                // You can display a message or take appropriate action here
+            }
+
+            // Set the timerFinished flag to true
+            timerFinished = true;
         }
     }
 
+
     private void PauseTimer()
     {
-        if (timer.Enabled)
+        if (oneSecondTimer.Enabled)
         {
-            timer.Stop();
+            oneSecondTimer.Stop();
         }
         else
         {
-            timer.Start();
+            oneSecondTimer.Start();
         }
+        timerFinished = false;
     }
 
     private void ResetTimer()
     {
-        timer.Stop();
+        oneSecondTimer.Stop();
+        timerFinished = false;
         UpdateTimeRemaining();
     }
 
     public void Dispose()
     {
-        timer?.Dispose();
+        oneSecondTimer?.Dispose();
     }
+
+    private void AcknowledgeTimer()
+    {
+        // Stop the vibration
+        Vibration.Cancel();
+
+        // Stop the sound (optional, if needed)
+        // Note: Stopping the sound may not be straightforward and depends on the specific sound player you're using
+        // You may need to use a different approach to control sound playback.
+
+        // Reset the timerFinished flag
+        timerFinished = false;
+        ResetTimer();
+    }
+
+
 }
