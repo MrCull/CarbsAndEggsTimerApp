@@ -2,24 +2,50 @@
 
 @if (!timerFinished)
 {
-    <button @onclick="StartTimer">Start</button>
+    <div class="timer-buttons">
+        <div class="time-remaining text-center">
+            <span class="timer-countdown">@timeRemaining.ToString(@"mm\:ss")</span>
+        </div>
+        <div class="button-row">
+            <div class="col-md-12 text-center">
+                @if (timerStarted)
+                {
+                    <button @onclick="PauseTimer" class="timer-button pause-button">Pause</button>
+                }
+                else
+                {
+                    <button @onclick="StartTimer" class="timer-button start-button">Start Cooking !!</button>
+                }
 
-    <div>
-        Time remaining: @timeRemaining.ToString(@"mm\:ss")
+            </div>
+        </div>
+        @if (timerStarted)
+        {
+            <div class="button-row">
+                <div class="col-md-6 text-center">
+                    <!-- Center the Reset button -->
+                    <button @onclick="ResetTimer" class="timer-button reset-button">Reset</button>
+                </div>
+            </div>
+        }
     </div>
-    @if (timerStarted)
-    {
-        <button @onclick="PauseTimer">Pause</button>
-        <button @onclick="ResetTimer">Reset</button>
-    }
 }
 else
 {
-    <button @onclick="AcknowledgeTimer" class="acknowledge-button">Time's up!</button>
-    <audio controls loop autoplay hidden>
-        <source src="sounds/beep.wav" type="audio/wav" />
-    </audio>
+    <div class="timer-buttons">
+        <div class="button-row">
+            <div class="col-md-12 text-center">
+                <!-- Center the Time's Up button -->
+                <button @onclick="AcknowledgeTimer" class="timer-button acknowledge-button">Time's up!</button>
+            </div>
+        </div>
+        <audio controls loop autoplay hidden>
+            <source src="sounds/beep.wav" type="audio/wav" />
+        </audio>
+    </div>
 }
+
+
 
 @code {
     [Parameter]
@@ -120,6 +146,7 @@ else
         {
             oneSecondTimer.Start();
         }
+        timerStarted = false;
         timerFinished = false;
     }
 
