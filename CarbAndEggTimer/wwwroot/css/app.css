@@ -187,3 +187,9 @@ h1:focus {
         max-width: 100%; /* Allow full width for smaller screens */
     }
 }
+
+
+.active {
+    background-color: #87CEEB; /* Light blueish background color for selected buttons */
+}
+}

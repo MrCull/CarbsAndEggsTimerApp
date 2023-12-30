@@ -6,33 +6,38 @@
     back
 </a>
 
-
-
-<div>
-    <div class="option-buttons">
+<div class="timer-buttons">
+    <div class="button-row">
         @foreach (EggSize size in Enum.GetValues(typeof(EggSize)))
         {
-
-            <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="@(selectedEggSize == size ? "active" : "")">
-                <img src="@GetEggImagePath(size)" alt="@size.ToString()">
-@size
-            </button>
+            <div class="col-md-6">
+                <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="timer-button @(selectedEggSize == size ? "active" : "")">
+                    <img src="@GetEggImagePath(size)" alt="@size.ToString()">
+                    @size
+                </button>
+            </div>
         }
     </div>
 </div>
 
 <div>
     <label>Choose egg doneness:</label>
-    <div class="option-buttons">
-        @foreach (EggDoneness doneness in Enum.GetValues(typeof(EggDoneness)))
-        {
-            <button @onclick="() => { selectedDoneness = doneness; UpdateTimeRemaining(); }" class="@(selectedDoneness == doneness ? "active" : "")">
-@*                <img src="@doneness.ToString().ToLower()@-boiled-egg.png" alt="@doneness.ToString()@-boiled">*@
-                @doneness
-            </button>
-        }
+    <div class="timer-buttons">
+        <div class="button-row">
+            @foreach (EggDoneness doneness in Enum.GetValues(typeof(EggDoneness)))
+            {
+                <div class="col-md-6">
+                    <button @onclick="() => { selectedDoneness = doneness; UpdateTimeRemaining(); }" class="timer-button @(selectedDoneness == doneness ? "active" : "")">
+                        <img src="@GetDonenessImagePath(doneness)" alt="@doneness.ToString()">
+                        @doneness
+                    </button>
+                </div>
+            }
+        </div>
     </div>
 </div>
+
+
 
 <MyTimer RequiredCookingTime="@requiredCookingTime" />
 
@@ -118,11 +123,11 @@
         switch (doneness)
         {
             case EggDoneness.Soft:
-                return "images/egg/soft-boiled-egg.png";
+                return "images/egg/Soft-boiled.png";
             case EggDoneness.Medium:
-                return "images/egg/medium-boiled-egg.png";
+                return "images/egg/Medium-boiled.png";
             case EggDoneness.Hard:
-                return "images/egg/hard-boiled-egg.png";
+                return "images/egg/Hard-boiled.png";
             default:
                 return "";
         }
