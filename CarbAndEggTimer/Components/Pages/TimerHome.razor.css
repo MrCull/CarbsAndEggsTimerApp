@@ -37,7 +37,7 @@
 
 /* Timer buttons */
 .timer-button {
-    background-color: #007bff;
+    background-color: transparent; /* Set to transparent or clear background */
     border: none;
     color: white;
     font-size: 1.5rem;
@@ -64,7 +64,7 @@
 
     /* Timer button hover effect */
     .timer-button:hover {
-        background-color: #0056b3;
+        background-color: #0056b3; /* Change background color on hover */
     }
 
 /* Media query for smaller screens */
