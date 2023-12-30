@@ -60,12 +60,58 @@ audio {
 /* Add this to your CSS file or <style> block */
 .timer-countdown {
     font-size: 48px; /* Increase font size */
-    color: #ff5733; /* Change text color to an appealing color */
     font-weight: bold; /* Make the text bold */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a subtle text shadow */
-    padding: 10px; /* Add some padding around the countdown */
-    border: 2px solid #ff5733; /* Add a border around the countdown */
+    padding: 5px; /* Add some padding around the countdown */
     border-radius: 10px; /* Round the corners of the countdown */
     background-color: #f2f2f2; /* Set a background color */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a box shadow */
+}
+
+
+
+
+/* Add this to your CSS file or <style> block */
+.green-text {
+    color: green;
+    border: 2px solid green; /* Add a border around the countdown */
+}
+
+.orange-text {
+    color: orange;
+    border: 2px solid orange; /* Add a border around the countdown */
+}
+
+.red-text {
+    color: #ff5733;
+    border: 2px solid #ff5733; /* Add a border around the countdown */
+}
+
+.grey-text {
+    color: #c9c9c9;
+    border: 2px solid #c9c9c9; /* Add a border around the countdown */
+}
+
+
+
+
+
+
+/* Add this to your CSS file or <style> block */
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.flash-animation {
+    animation: flash 1s infinite; /* 1s duration, infinite loop */
 }

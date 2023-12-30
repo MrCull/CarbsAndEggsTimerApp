@@ -2,10 +2,12 @@
 
 @if (!timerFinished)
 {
+    <div class="time-remaining text-center @(GetTimeRemainingClass())">
+        <span class="timer-countdown">@timeRemaining.ToString(@"mm\:ss")</span>
+    </div>
+
     <div class="timer-buttons">
-        <div class="time-remaining text-center">
-            <span class="timer-countdown">@timeRemaining.ToString(@"mm\:ss")</span>
-        </div>
+
         <div class="button-row">
             <div class="col-md-12 text-center">
                 @if (timerStarted)
@@ -18,16 +20,16 @@
                 }
 
             </div>
-        </div>
-        @if (timerStarted)
-        {
-            <div class="button-row">
-                <div class="col-md-6 text-center">
-                    <!-- Center the Reset button -->
-                    <button @onclick="ResetTimer" class="timer-button reset-button">Reset</button>
+            @if (timerStarted)
+            {
+                <div class="button-row">
+                    <div class="col-md-6 text-center">
+                        <!-- Center the Reset button -->
+                        <button @onclick="ResetTimer" class="timer-button reset-button">Reset</button>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 }
 else
@@ -35,14 +37,16 @@ else
     <div class="timer-buttons">
         <div class="button-row">
             <div class="col-md-12 text-center">
-                <!-- Center the Time's Up button -->
-                <button @onclick="AcknowledgeTimer" class="timer-button acknowledge-button">Time's up!</button>
+                <!-- Center the Time's Up button and add animation class -->
+                <button @onclick="AcknowledgeTimer" class="timer-button acknowledge-button flash-animation">Time's up!</button>
             </div>
         </div>
         <audio controls loop autoplay hidden>
             <source src="sounds/beep.wav" type="audio/wav" />
         </audio>
     </div>
+
+
 }
 
 
@@ -165,7 +169,7 @@ else
     private void AcknowledgeTimer()
     {
         // Stop the vibration
-//        Vibration.Cancel()
+        //        Vibration.Cancel()
 
         // Stop the sound (optional, if needed)
         // Note: Stopping the sound may not be straightforward and depends on the specific sound player you're using
@@ -174,6 +178,27 @@ else
         // Reset the timerFinished flag
         timerFinished = false;
         ResetTimer();
+    }
+
+
+    private string GetTimeRemainingClass()
+    {
+        if (!timerStarted && timeRemaining.TotalSeconds < 1)
+        {
+            return "grey-text";
+        }
+        if (timeRemaining.TotalSeconds > 60)
+        {
+            return "green-text"; // Add your class name for over 1 minute
+        }
+        else if (timeRemaining.TotalSeconds > 10)
+        {
+            return "orange-text"; // Add your class name for less than 1 minute
+        }
+        else
+        {
+            return "red-text"; // Add your class name for less than 10 seconds
+        }
     }
 
 
