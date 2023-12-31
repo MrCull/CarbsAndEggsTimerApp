@@ -7,24 +7,28 @@
     </div>
 
 
-    @if (!timerFinished)
+    @if (!isTimerFinished)
     {
-
         <div class="timer-buttons">
-
             <div class="button-row">
                 <div class="col-md-12 text-center">
-                    @if (timerStarted)
+                    @if (isTimerStarted)
                     {
                         <button @onclick="PauseTimer" class="timer-button pause-button">Pause</button>
                     }
                     else
                     {
-                        <button @onclick="StartTimer" class="timer-button start-button">Start Cooking !!</button>
+                        if (timeRemaining == TimeSpan.FromMinutes(requiredCookingTime))
+{
+                            <button @onclick="StartTimer" class="timer-button start-button">Start Cooking !!</button>
+                        }
+                        else
+                        {
+                            <button @onclick="StartTimer" class="timer-button start-button">Resume</button>
+                        }
                     }
-
                 </div>
-                @if (timerStarted)
+                @if ((isTimerStarted || isTimerPaused))
                 {
                     <div class="button-row">
                         <div class="col-md-6 text-center">
@@ -57,8 +61,9 @@
     [Parameter]
     public double requiredCookingTime { get; set; } = 0;
 
-    private bool timerStarted = false;
-    private bool timerFinished = false;
+    private bool isTimerStarted = false;
+    private bool isTimerFinished = false;
+    private bool isTimerPaused = false;
 
     private TimeSpan timeRemaining;
     private System.Timers.Timer oneSecondTimer = new System.Timers.Timer();
@@ -79,9 +84,9 @@
 
     private void StartTimer()
     {
-        timerStarted = true;
-        timerFinished = false;
-
+        isTimerStarted = true;
+        isTimerFinished = false;
+        isTimerPaused = false;
 
         // Set initial timeRemaining based on selectedDoneness and selectedEggSize
         // int baseTime = GetMinsForDoneness(selectedDoneness);
@@ -124,7 +129,7 @@
             }
 
             // Set the timerFinished flag to true
-            timerFinished = true;
+            isTimerFinished = true;
         }
         InvokeAsync(StateHasChanged);
     }
@@ -140,14 +145,14 @@
         {
             oneSecondTimer.Start();
         }
-        timerStarted = false;
-        timerFinished = false;
+        isTimerStarted = false;
+        isTimerPaused = true;
     }
 
     private void ResetTimer()
     {
-        oneSecondTimer.Stop();
-        timerFinished = false;
+        // oneSecondTimer.Stop();
+        isTimerFinished = false;
         UpdateTimeRemaining();
     }
 
@@ -166,7 +171,7 @@
         // You may need to use a different approach to control sound playback.
 
         // Reset the timerFinished flag
-        timerFinished = false;
+        isTimerFinished = false;
         oneSecondTimer.Stop();
         ResetTimer();
     }
@@ -174,7 +179,7 @@
 
     private string GetTimeRemainingClass()
     {
-        if (!timerStarted && timeRemaining.TotalSeconds < 1)
+        if (!isTimerStarted && timeRemaining.TotalSeconds < 1)
         {
             return "grey-text";
         }
@@ -216,7 +221,7 @@
     }
 
     private string GetBackground()
-        => timerStarted ? "animated-boil-background" : "";
+        => isTimerStarted ? "animated-boil-background" : "";
     
 
 }
