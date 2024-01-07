@@ -173,6 +173,31 @@ h1:focus {
     gap: 0.1rem;
 }
 
+.home-image {
+    width: 100%;
+    height: auto;
+}
+
+
+.home-boiling-image-animation {
+    animation: boil 0.5s infinite alternate;
+}
+
+@keyframes boil {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.02);
+    }
+}
+
+
+
+
+
+
 
 
 /* Timer buttons container */

@@ -6,44 +6,57 @@
     back
 </a>
 
-<div class="timer-buttons">
-    <div class="button-row">
-        @foreach (EggSize size in Enum.GetValues(typeof(EggSize)))
-        {
-            <div class="col-md-6">
-                <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="timer-button @(selectedEggSize == size ? "active" : "")">
-                    <img src="@GetEggImagePath(size)" alt="@size.ToString()">
-                    @size
-                </button>
-            </div>
-        }
-    </div>
-</div>
-
-<div>
-    <label>Choose egg doneness:</label>
+@if (timerState == TimerState.NotStarted || timerState == TimerState.Stopped)
+{
     <div class="timer-buttons">
         <div class="button-row">
-            @foreach (EggDoneness doneness in Enum.GetValues(typeof(EggDoneness)))
+            @foreach (EggSize size in Enum.GetValues(typeof(EggSize)))
             {
                 <div class="col-md-6">
-                    <button @onclick="() => { selectedDoneness = doneness; UpdateTimeRemaining(); }" class="timer-button @(selectedDoneness == doneness ? "active" : "")">
-                        <img src="@GetDonenessImagePath(doneness)" alt="@doneness.ToString()">
-                        @doneness
+                    <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="timer-button @(selectedEggSize == size ? "active" : "")">
+                        <img src="@GetEggImagePath(size)" alt="@size.ToString()">
+                        @size
                     </button>
                 </div>
             }
         </div>
     </div>
-</div>
+
+    <div>
+        <label>Choose egg doneness:</label>
+        <div class="timer-buttons">
+            <div class="button-row">
+                @foreach (EggDoneness doneness in Enum.GetValues(typeof(EggDoneness)))
+                {
+                    <div class="col-md-6">
+                        <button @onclick="() => { selectedDoneness = doneness; UpdateTimeRemaining(); }" class="timer-button @(selectedDoneness == doneness ? "active" : "")">
+                            <img src="@GetDonenessImagePath(doneness)" alt="@doneness.ToString()">
+                            @doneness
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <img src="/images/egg/@(eggCookingImageName).png" alt="@(eggCookingImageName)" class="home-image @(cookingCssClass)" />
+}
 
 
-
-<MyTimer RequiredCookingTime="@requiredCookingTime" />
+<MyTimer RequiredCookingTime="@requiredCookingTime"
+         OnTimerStarted="HandleTimerStarted"
+         OnTimerPaused="HandleTimerPaused"
+         OnTimerNearDone="HandleTimerNearDone"
+         OnTimerDone="HandleTimerDone"
+         OnTimerOverDone="HandleTimerOverDone"
+         OnTimerStopped="HandleTimerStopped" />
 
 @code {
 
     private double requiredCookingTime = 0;
+    string cookingCssClass = "";
 
     public enum EggDoneness
     {
@@ -61,6 +74,19 @@
 
     private EggDoneness selectedDoneness = EggDoneness.Medium;
     private EggSize selectedEggSize = EggSize.Medium;
+
+    public enum TimerState
+    {
+        NotStarted,
+        Started,
+        Paused,
+        Expired,
+        Stopped
+    }
+
+    private TimerState timerState = TimerState.NotStarted;
+
+    private string eggCookingImageName = "";
 
     protected override void OnInitialized()
     {
@@ -131,6 +157,49 @@
             default:
                 return "";
         }
+    }
+
+    private void HandleTimerStarted()
+    {
+        timerState = TimerState.Started;
+        cookingCssClass = "home-boiling-image-animation";
+        eggCookingImageName = "egg_boiling_happy";
+    }
+
+    private void HandleTimerPaused()
+    {
+        timerState = TimerState.Paused;
+        eggCookingImageName = "egg_boiling_happy";
+        cookingCssClass = "";
+    }
+
+    private void HandleTimerNearDone()
+    {
+        timerState = TimerState.Started;
+        eggCookingImageName = "egg_boiling_happy";
+        cookingCssClass = "home-boiling-image-animation";
+    }
+
+    private void HandleTimerDone()
+    {
+        timerState = TimerState.Expired;
+        eggCookingImageName = "egg_boiling_happy";
+        cookingCssClass = "home-boiling-image-animation";
+    }
+
+    private void HandleTimerOverDone()
+    {
+        timerState = TimerState.Expired;
+        eggCookingImageName = "egg_boiling_shocked";
+        cookingCssClass = "home-boiling-image-animation";
+        StateHasChanged();
+    }
+
+    private void HandleTimerStopped()
+    {
+        timerState = TimerState.Stopped;
+        eggCookingImageName = "egg_boiling_happy";
+        cookingCssClass = "";
     }
 }
             

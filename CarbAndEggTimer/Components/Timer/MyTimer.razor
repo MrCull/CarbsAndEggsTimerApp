@@ -7,12 +7,12 @@
     </div>
 
 
-    @if (!isTimerFinished)
+    @if (timerState != TimerState.Done && timerState != TimerState.OverDone)
     {
         <div class="timer-buttons">
             <div class="button-row">
                 <div class="col-md-12 text-center">
-                    @if (isTimerStarted)
+                    @if (timerState == TimerState.Started || timerState == TimerState.NearDone)
                     {
                         <button @onclick="PauseTimer" class="timer-button pause-button">Pause</button>
                     }
@@ -28,7 +28,7 @@
                         }
                     }
                 </div>
-                @if ((isTimerStarted || isTimerPaused))
+                @if ((timerState == TimerState.Started || timerState == TimerState.Paused || timerState == TimerState.NearDone))
                 {
                     <div class="button-row">
                         <div class="col-md-6 text-center">
@@ -60,10 +60,27 @@
 @code {
     [Parameter]
     public double requiredCookingTime { get; set; } = 0;
+    private double previousRequiredCookingTime { get; set; } = 0;
 
-    private bool isTimerStarted = false;
-    private bool isTimerFinished = false;
-    private bool isTimerPaused = false;
+    [Parameter] public EventCallback OnTimerStarted { get; set; }
+    [Parameter] public EventCallback OnTimerPaused { get; set; }
+    [Parameter] public EventCallback OnTimerNearDone { get; set; }
+    [Parameter] public EventCallback OnTimerDone { get; set; }
+    [Parameter] public EventCallback OnTimerStopped { get; set; }
+    [Parameter] public EventCallback OnTimerOverDone { get; set; }
+
+
+    private enum TimerState
+    {
+        NotStarted,
+        Started,
+        Paused,
+        NearDone,
+        Done,
+        OverDone
+    }
+
+    private TimerState timerState = TimerState.NotStarted;
 
     private TimeSpan timeRemaining;
     private System.Timers.Timer oneSecondTimer = new System.Timers.Timer();
@@ -79,26 +96,20 @@
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        UpdateTimeRemaining();
+        if (previousRequiredCookingTime != requiredCookingTime)
+        {
+            UpdateTimeRemaining();
+            previousRequiredCookingTime = requiredCookingTime;
+        }
     }
 
-    private void StartTimer()
+    private async void StartTimer()
     {
-        isTimerStarted = true;
-        isTimerFinished = false;
-        isTimerPaused = false;
-
-        // Set initial timeRemaining based on selectedDoneness and selectedEggSize
-        // int baseTime = GetMinsForDoneness(selectedDoneness);
-
-        // double sizeFactor = GetFactorForSize(selectedEggSize);
-
-        // double totalTime = baseTime * sizeFactor;
-        //       timeRemaining = TimeSpan.FromMinutes(requiredCookingTime);
-
-        // Create and start the timer
+        timerState = TimerState.Started;
 
         oneSecondTimer.Start();
+
+        await OnTimerStarted.InvokeAsync();
     }
 
 
@@ -108,14 +119,54 @@
         StateHasChanged();
     }
 
-    private void ClockTicked(object? sender, System.Timers.ElapsedEventArgs e)
+    private async void ClockTicked(object? sender, System.Timers.ElapsedEventArgs e)
     {
         timeRemaining -= TimeSpan.FromSeconds(1);
 
-        if (timeRemaining <= TimeSpan.Zero)
+        if (timerState == TimerState.NotStarted && timeRemaining.TotalSeconds < 1)
         {
-            //oneSecondTimer.Stop();
+            
+        }
+        if (timeRemaining.TotalSeconds > 10)
+        {
 
+        }
+        else if (timeRemaining.TotalSeconds > 0)
+        {
+            if (timerState != TimerState.NearDone || timerState != TimerState.Paused)
+            {
+                timerState = TimerState.NearDone;
+                await InvokeAsync(async () =>
+                {
+                    await OnTimerNearDone.InvokeAsync();
+                });
+            }
+        }
+        else if (timeRemaining.TotalSeconds > -10)
+        {
+            if (timerState != TimerState.Done)
+            {
+                timerState = TimerState.Done;
+                await InvokeAsync(async () =>
+                {
+                    await OnTimerDone.InvokeAsync();
+                });
+            }
+        }
+        else
+        {
+            if (timerState != TimerState.OverDone)
+            {
+                timerState = TimerState.OverDone;
+                await InvokeAsync(async () =>
+                {
+                    await OnTimerOverDone.InvokeAsync();
+                });
+            }
+        }
+
+        if (timerState == TimerState.Done || timerState == TimerState.OverDone)
+        {
             // Vibrate the phone
             try
             {
@@ -127,15 +178,13 @@
                 // Handle the exception if vibration is not supported on the device
                 // You can display a message or take appropriate action here
             }
-
-            // Set the timerFinished flag to true
-            isTimerFinished = true;
         }
-        InvokeAsync(StateHasChanged);
+
+        await InvokeAsync(StateHasChanged);
     }
 
 
-    private void PauseTimer()
+    private async void PauseTimer()
     {
         if (oneSecondTimer.Enabled)
         {
@@ -145,14 +194,14 @@
         {
             oneSecondTimer.Start();
         }
-        isTimerStarted = false;
-        isTimerPaused = true;
+
+        timerState = TimerState.Paused;
+
+        await OnTimerPaused.InvokeAsync();
     }
 
     private void ResetTimer()
     {
-        // oneSecondTimer.Stop();
-        isTimerFinished = false;
         UpdateTimeRemaining();
     }
 
@@ -161,7 +210,7 @@
         oneSecondTimer?.Dispose();
     }
 
-    private void AcknowledgeTimer()
+    private async void AcknowledgeTimer()
     {
         // Stop the vibration
         //        Vibration.Cancel()
@@ -171,33 +220,40 @@
         // You may need to use a different approach to control sound playback.
 
         // Reset the timerFinished flag
-        isTimerFinished = false;
+        timerState = TimerState.NotStarted;
         oneSecondTimer.Stop();
         ResetTimer();
+
+        await OnTimerStopped.InvokeAsync();
     }
 
 
     private string GetTimeRemainingClass()
     {
-        if (!isTimerStarted && timeRemaining.TotalSeconds < 1)
+        if (timerState == TimerState.NotStarted && timeRemaining.TotalSeconds < 1)
         {
             return "grey-text";
         }
-        if (timeRemaining.TotalSeconds > 10)
+        if (timerState == TimerState.Started)
         {
             return "black-text"; 
         }
-        else if (timeRemaining.TotalSeconds > 0)
+        else if (timerState == TimerState.NearDone)
         {
             return "orange-text"; 
         }
-        else if (timeRemaining.TotalSeconds > -10)
+        else if (timerState == TimerState.Done)
         {
-            return "green-text";
+            return "green-text flash-animation";
+        }
+        else if (timerState == TimerState.OverDone)
+        {
+            return "red-text";
         }
         else
         {
-            return "red-text";
+            // should never happen
+            return "black-text";
         }
     }
 
@@ -210,7 +266,7 @@
         }
         else if (time.TotalSeconds < 1)
         {
-            // If time is negative, display it as a negative value
+            // Show 0 for some seconds
             return "00:00";
         }
         else
@@ -221,7 +277,14 @@
     }
 
     private string GetBackground()
-        => isTimerStarted ? "animated-boil-background" : "";
+    {
+        if (timerState == TimerState.Started || timerState == TimerState.Done || timerState == TimerState.NearDone || timerState == TimerState.OverDone)
+        {
+            return "animated-boil-background";
+        }
+
+        return "";
+    }
     
 
 }
