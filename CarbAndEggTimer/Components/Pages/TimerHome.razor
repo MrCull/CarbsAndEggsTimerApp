@@ -1,19 +1,20 @@
 ﻿@page "/"
 @inject NavigationManager Navigation
 
-
-
+<div class="welcome-text">
+    <h2>Egg & Carbs Timer</h2>
+</div>
 
 <div class="home-buttons">
     <div class="home-button-row">
         <button @onclick="() => GoToTimer(TimerType.Egg)" class="home-button">
             <img src="images/home/egg.png" alt="Egg Timer">
         </button>
+
         <button @onclick="() => GoToTimer(TimerType.Rice)" class="home-button">
             <img src="images/home/rice.png" alt="Rice Timer">
         </button>
-    </div>
-    <div class="home-button-row">
+
         <button @onclick="() => GoToTimer(TimerType.Pasta)" class="home-button">
             <img src="images/home/pasta.png" alt="Pasta Timer">
         </button>

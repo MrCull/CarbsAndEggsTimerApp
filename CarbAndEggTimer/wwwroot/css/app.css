@@ -1,5 +1,10 @@
-﻿html, body {
+﻿html {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 
@@ -98,7 +103,20 @@ h1:focus {
 
 
 
+@font-face {
+    font-family: 'Fredoka One';
+    src: url('../fonts/Fredoka-Variable.ttf') format('truetype');
+    font-weight: bolder;
+    font-style: normal;
+}
 
+.welcome-text h2 {
+    font-family: 'Fredoka One', sans-serif;
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
 
 
 
@@ -130,47 +148,30 @@ h1:focus {
 
 
 /* Timer buttons container */
-.hone-buttons {
+/*.hone-buttons {
     display: flex;
-    flex-direction: column; /* Display buttons in a column */
-    gap: 0.1rem;
-}
-
+    flex-direction: column;*/ /* Display buttons in a column */
+    /*gap: 0.1rem;
+}*/
 
 .home-button {
-    background-color: transparent; /* Set to transparent or clear background */
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    padding: 0.1rem; /* Adjust padding to make the border smaller */
-    border-radius: 0px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    font-size: 16px;
-    flex: 1; /* Allow multiple buttons per row */
-    max-width: 100%; /* Ensure full width on mobile for vertical stacking */
-    margin: 0.5rem auto; /* Adjust margin for better spacing */
+    background-color: #ffffff; /* Light background */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+    margin: 0.5rem; /* More space around buttons */
+    border-radius: 8px; /* Rounded corners */
 }
 
-.home-button img {
-    width: 100%; /* 100% width for responsive images */
-    height: auto;
-}
+    .home-button img {
+        max-width: 60%; /* Reduce image size for better balance */
+        transition: transform 0.3s ease; /* Smooth transition for images too */
+    }
 
-.home-button:hover {
-    background-color: #0056b3; /* Change background color on hover */
-}
 
-/* Button rows */
+/* Update to button rows for better alignment and responsiveness */
 .home-button-row {
-    display: flex;
-    justify-content: center;
-    gap: 0.1rem;
+    justify-content: space-evenly;
+    flex-wrap: wrap; /* Wrap buttons for smaller screens */
 }
 
 .home-image {
@@ -183,17 +184,16 @@ h1:focus {
     animation: boil 0.5s infinite alternate;
 }
 
+
 @keyframes boil {
-    0% {
-        transform: scale(1);
+    0%, 100% {
+        transform: rotate(-1deg);
     }
 
-    100% {
-        transform: scale(1.02);
+    50% {
+        transform: rotate(1deg);
     }
 }
-
-
 
 
 
