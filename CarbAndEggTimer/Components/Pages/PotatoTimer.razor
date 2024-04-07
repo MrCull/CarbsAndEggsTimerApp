@@ -12,7 +12,7 @@
         {
             <div class="col">
                 <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Chips ? "active" : "")">
-                    <img src="images/potato/chips.png" alt="Chips">
+                    <img src="images/potato/fries.png" alt="Chips">
                     Chips
                 </button>
             </div>
@@ -101,7 +101,7 @@
         switch (type)
         {
             case PotatoType.Chips:
-                return "images/potato/chips.png";
+                return "images/potato/fries.png";
             case PotatoType.Roast:
                 return "images/potato/roast.png";
             case PotatoType.Boiled:
