@@ -13,7 +13,7 @@
             @foreach (EggSize size in Enum.GetValues(typeof(EggSize)))
             {
                 <div class="col-md-6">
-                    <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="timer-button @(selectedEggSize == size ? "active" : "")">
+                    <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="home-button @(selectedEggSize == size ? "active" : "")">
                         <img src="@GetEggImagePath(size)" alt="@size.ToString()">
                         @size
                     </button>
