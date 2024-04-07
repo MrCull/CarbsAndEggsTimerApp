@@ -1,5 +1,7 @@
 ﻿@page "/mytimer"
 
+@inject IJSRuntime JS
+
 
 <div class="@GetBackground()">
     <div class="time-remaining text-center @(GetTimeRemainingClass())">
@@ -49,12 +51,20 @@
                     <button @onclick="AcknowledgeTimer" class="timer-button acknowledge-button flash-animation">Time's up!</button>
                 </div>
             </div>
-            <audio controls loop autoplay hidden>
+@*             <audio id="beepAudio" controls loop>
                 <source src="sounds/beep.wav" type="audio/wav" />
-            </audio>
+            </audio> *@
         </div>
+
     }
 </div>
+<script>
+    function playAudio() {
+        var audio = new Audio('sounds/beep.wav');
+        audio.play();
+    }
+
+</script>
 
 
 @code {
@@ -125,7 +135,7 @@
 
         if (timerState == TimerState.NotStarted && timeRemaining.TotalSeconds < 1)
         {
-            
+
         }
         if (timeRemaining.TotalSeconds > 10)
         {
@@ -147,6 +157,7 @@
             if (timerState != TimerState.Done)
             {
                 timerState = TimerState.Done;
+                // await PlayAudio();
                 await InvokeAsync(async () =>
                 {
                     await OnTimerDone.InvokeAsync();
@@ -170,8 +181,12 @@
             // Vibrate the phone
             try
             {
+                await PlayAudio();
+
                 // Vibrate for 1 second (1000 milliseconds)
                 Vibration.Vibrate(TimeSpan.FromMilliseconds(1000));
+
+
             }
             catch (FeatureNotSupportedException ex)
             {
@@ -286,5 +301,9 @@
         return "";
     }
     
-
+    private async Task PlayAudio()
+    {
+        await JS.InvokeVoidAsync("playAudio");
+    }
 }
+

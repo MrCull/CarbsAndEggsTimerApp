@@ -2,8 +2,25 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+
+@font-face {
+    font-family: 'Fredoka One';
+    src: url('../fonts/Fredoka-Variable.ttf') format('truetype');
+    font-weight: bolder;
+    font-style: normal;
+}
+
+.welcome-text h2 {
+    font-family: 'Fredoka One', sans-serif;
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Fredoka One', 'Roboto', sans-serif;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
@@ -102,21 +119,6 @@ h1:focus {
 
 
 
-
-@font-face {
-    font-family: 'Fredoka One';
-    src: url('../fonts/Fredoka-Variable.ttf') format('truetype');
-    font-weight: bolder;
-    font-style: normal;
-}
-
-.welcome-text h2 {
-    font-family: 'Fredoka One', sans-serif;
-    text-align: center;
-    color: #333;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-}
 
 
 

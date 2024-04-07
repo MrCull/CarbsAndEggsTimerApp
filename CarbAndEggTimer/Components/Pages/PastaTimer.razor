@@ -14,16 +14,18 @@
             <div class="col-md-6">
                 <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
                     <img src="@GetPastaImagePath(PastaType.Spaghetti)" alt="Spaghetti">
-                    Spaghetti
+                    <br />Spaghetti
                 </button>
             </div>
         }
+    </div>
+    <div class="button-row">
         @if (selectedPastaType is null || selectedPastaType == PastaType.Penne)
         {
             <div class="col-md-6">
                 <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Penne ? "active" : "")">
                     <img src="@GetPastaImagePath(PastaType.Penne)" alt="Penne">
-                    Penne
+                    <br />Penne
                 </button>
             </div>
         }
@@ -34,16 +36,18 @@
             <div class="col-md-6">
                 <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Farfalle ? "active" : "")">
                     <img src="@GetPastaImagePath(PastaType.Farfalle)" alt="Farfalle">
-                    Farfalle
+                    <br />Farfalle
                 </button>
             </div>
         }
+    </div>
+    <div class="button-row">
         @if (selectedPastaType is null || selectedPastaType == PastaType.Fusilli)
         {
             <div class="col-md-6">
                 <button @onclick="() => { selectedPastaType = PastaType.Fusilli; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Fusilli ? "active" : "")"> <!-- Changed Lasagne to Fusilli here -->
-                    <img src="@GetPastaImagePath(PastaType.Fusilli)" alt="Fusilli"> 
-                    Fusilli
+                    <img src="@GetPastaImagePath(PastaType.Fusilli)" alt="Fusilli">
+                    <br />Fusilli
                 </button>
             </div>
         }

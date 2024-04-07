@@ -14,16 +14,18 @@
             <div class="col-md-6">
                 <button @onclick="() => { selectedRiceType = RiceType.Basmati; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Basmati ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Basmati)" alt="Basmati">
-                    Basmati
+                    <br />Basmati
                 </button>
             </div>
         }
+    </div>
+    <div class="button-row">
         @if (selectedRiceType is null || selectedRiceType == RiceType.Jasmine)
         {
             <div class="col-md-6">
                 <button @onclick="() => { selectedRiceType = RiceType.Jasmine; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Jasmine ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Jasmine)" alt="Jasmine">
-                    Jasmine
+                    <br />Jasmine
                 </button>
             </div>
         }
@@ -34,16 +36,18 @@
             <div class="col-md-6">
                 <button @onclick="() => { selectedRiceType = RiceType.Brown; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Brown ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Brown)" alt="Brown">
-                    Brown
+                    <br />Brown
                 </button>
             </div>
         }
+    </div>
+    <div class="button-row">
         @if (selectedRiceType is null || selectedRiceType == RiceType.Sushi)
         {
             <div class="col-md-6">
                 <button @onclick="() => { selectedRiceType = RiceType.Sushi; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Sushi ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Sushi)" alt="Sushi">
-                    Sushi
+                    <br />Sushi
                 </button>
             </div>
         }

@@ -13,16 +13,18 @@
             <div class="col">
                 <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Chips ? "active" : "")">
                     <img src="images/potato/fries.png" alt="Chips">
-                    Chips
+                    <br />Fries
                 </button>
             </div>
         }
+    </div>
+    <div class="button-row">
         @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Roast)
         {
             <div class="col">
                 <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Roast ? "active" : "")">
                     <img src="images/potato/roast.png" alt="Roast">
-                    Roast
+                    <br />Roast
                 </button>
             </div>
         }
@@ -33,17 +35,18 @@
             <div class="col">
                 <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
                     <img src="images/potato/boiled.png" alt="Boiled">
-                    Boiled
+                    <br />Boiled
                 </button>
             </div>
         }
-        
+    </div>
+    <div class="button-row">
         @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Baked)
         {
             <div class="col">
                 <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Baked ? "active" : "")">
                     <img src="images/potato/baked.png" alt="Baked">
-                    Baked
+                    <br />Baked
                 </button>
             </div>
         }

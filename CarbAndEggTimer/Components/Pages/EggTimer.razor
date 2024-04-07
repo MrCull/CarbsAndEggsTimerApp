@@ -94,9 +94,22 @@ else
         UpdateTimeRemaining();
     }
 
+    private int buttonSmallClickCount = 0;
+
     private void UpdateTimeRemaining()
     {
         requiredCookingTime = GetMinsForDoneness(selectedDoneness) * GetFactorForSize(selectedEggSize);
+
+
+        // Dev hack to speed up the timer
+        if (selectedEggSize == EggSize.Small)
+        {
+            buttonSmallClickCount++;
+            if (buttonSmallClickCount > 9)
+            {
+                requiredCookingTime = 0.05;
+            }
+        }
     }
 
     private int GetMinsForDoneness(EggDoneness doneness)
@@ -104,7 +117,7 @@ else
         switch (doneness)
         {
             case EggDoneness.Soft:
-                return 1;
+                return 4;
             case EggDoneness.Medium:
                 return 6;
             case EggDoneness.Hard:
@@ -119,7 +132,7 @@ else
         switch (size)
         {
             case EggSize.Small:
-                return 0.09;
+                return 0.9;
             case EggSize.Medium:
                 return 1;
             case EggSize.Large:
