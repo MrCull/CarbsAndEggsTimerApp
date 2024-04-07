@@ -12,7 +12,7 @@
         @if (selectedPastaType is null || selectedPastaType == PastaType.Spaghetti)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
+                <button @onclick="() => { selectedPastaType = PastaType.Spaghetti; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Spaghetti ? "active" : "")">
                     <img src="@GetPastaImagePath(PastaType.Spaghetti)" alt="Spaghetti">
                     Spaghetti
                 </button>
@@ -21,7 +21,7 @@
         @if (selectedPastaType is null || selectedPastaType == PastaType.Penne)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Penne ? "active" : "")">
+                <button @onclick="() => { selectedPastaType = PastaType.Penne; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Penne ? "active" : "")">
                     <img src="@GetPastaImagePath(PastaType.Penne)" alt="Penne">
                     Penne
                 </button>
@@ -32,7 +32,7 @@
         @if (selectedPastaType is null || selectedPastaType == PastaType.Farfalle)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Farfalle ? "active" : "")">
+                <button @onclick="() => { selectedPastaType = PastaType.Farfalle; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Farfalle ? "active" : "")">
                     <img src="@GetPastaImagePath(PastaType.Farfalle)" alt="Farfalle">
                     Farfalle
                 </button>
@@ -41,7 +41,7 @@
         @if (selectedPastaType is null || selectedPastaType == PastaType.Fusilli)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedPastaType = PastaType.Fusilli; UpdatePastaCookingTime(); }" class="timer-button @(selectedPastaType == PastaType.Fusilli ? "active" : "")"> <!-- Changed Lasagne to Fusilli here -->
+                <button @onclick="() => { selectedPastaType = PastaType.Fusilli; UpdatePastaCookingTime(); }" class="image-button @(selectedPastaType == PastaType.Fusilli ? "active" : "")"> <!-- Changed Lasagne to Fusilli here -->
                     <img src="@GetPastaImagePath(PastaType.Fusilli)" alt="Fusilli"> 
                     Fusilli
                 </button>

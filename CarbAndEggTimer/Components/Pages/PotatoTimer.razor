@@ -11,7 +11,7 @@
         @if (selectedPotatoType is null || selectedPotatoType== PotatoType.Chips)
         {
             <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Chips ? "active" : "")">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Chips; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Chips ? "active" : "")">
                     <img src="images/potato/fries.png" alt="Chips">
                     Chips
                 </button>
@@ -20,7 +20,7 @@
         @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Roast)
         {
             <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Roast ? "active" : "")">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Roast; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Roast ? "active" : "")">
                     <img src="images/potato/roast.png" alt="Roast">
                     Roast
                 </button>
@@ -31,7 +31,7 @@
         @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Boiled)
         {
             <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Boiled; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Boiled ? "active" : "")">
                     <img src="images/potato/boiled.png" alt="Boiled">
                     Boiled
                 </button>
@@ -41,7 +41,7 @@
         @if (selectedPotatoType is null || selectedPotatoType == PotatoType.Baked)
         {
             <div class="col">
-                <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="timer-button @(selectedPotatoType == PotatoType.Baked ? "active" : "")">
+                <button @onclick="() => { selectedPotatoType = PotatoType.Baked; UpdatePotatoCookingTime(); }" class="image-button @(selectedPotatoType == PotatoType.Baked ? "active" : "")">
                     <img src="images/potato/baked.png" alt="Baked">
                     Baked
                 </button>

@@ -13,7 +13,7 @@
             @foreach (EggSize size in Enum.GetValues(typeof(EggSize)))
             {
                 <div class="col-md-6">
-                    <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="home-button @(selectedEggSize == size ? "active" : "")">
+                    <button @onclick="() => { selectedEggSize = size; UpdateTimeRemaining(); }" class="image-button @(selectedEggSize == size ? "active" : "")">
                         <img src="@GetEggImagePath(size)" alt="@size.ToString()">
                         @size
                     </button>
@@ -29,7 +29,7 @@
                 @foreach (EggDoneness doneness in Enum.GetValues(typeof(EggDoneness)))
                 {
                     <div class="col-md-6">
-                        <button @onclick="() => { selectedDoneness = doneness; UpdateTimeRemaining(); }" class="timer-button @(selectedDoneness == doneness ? "active" : "")">
+                        <button @onclick="() => { selectedDoneness = doneness; UpdateTimeRemaining(); }" class="image-button @(selectedDoneness == doneness ? "active" : "")">
                             <img src="@GetDonenessImagePath(doneness)" alt="@doneness.ToString()">
                             @doneness
                         </button>

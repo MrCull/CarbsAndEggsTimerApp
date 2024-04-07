@@ -12,7 +12,7 @@
         @if (selectedRiceType is null || selectedRiceType == RiceType.Basmati)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedRiceType = RiceType.Basmati; UpdateRiceCookingTime(); }" class="timer-button @(selectedRiceType == RiceType.Basmati ? "active" : "")">
+                <button @onclick="() => { selectedRiceType = RiceType.Basmati; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Basmati ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Basmati)" alt="Basmati">
                     Basmati
                 </button>
@@ -21,7 +21,7 @@
         @if (selectedRiceType is null || selectedRiceType == RiceType.Jasmine)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedRiceType = RiceType.Jasmine; UpdateRiceCookingTime(); }" class="timer-button @(selectedRiceType == RiceType.Jasmine ? "active" : "")">
+                <button @onclick="() => { selectedRiceType = RiceType.Jasmine; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Jasmine ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Jasmine)" alt="Jasmine">
                     Jasmine
                 </button>
@@ -32,7 +32,7 @@
         @if (selectedRiceType is null || selectedRiceType == RiceType.Brown)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedRiceType = RiceType.Brown; UpdateRiceCookingTime(); }" class="timer-button @(selectedRiceType == RiceType.Brown ? "active" : "")">
+                <button @onclick="() => { selectedRiceType = RiceType.Brown; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Brown ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Brown)" alt="Brown">
                     Brown
                 </button>
@@ -41,7 +41,7 @@
         @if (selectedRiceType is null || selectedRiceType == RiceType.Sushi)
         {
             <div class="col-md-6">
-                <button @onclick="() => { selectedRiceType = RiceType.Sushi; UpdateRiceCookingTime(); }" class="timer-button @(selectedRiceType == RiceType.Sushi ? "active" : "")">
+                <button @onclick="() => { selectedRiceType = RiceType.Sushi; UpdateRiceCookingTime(); }" class="image-button @(selectedRiceType == RiceType.Sushi ? "active" : "")">
                     <img src="@GetRiceImagePath(RiceType.Sushi)" alt="Sushi">
                     Sushi
                 </button>
