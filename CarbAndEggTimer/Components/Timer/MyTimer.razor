@@ -3,7 +3,7 @@
 @inject IJSRuntime JS
 
 
-<div class="@GetBackground()">
+<div class="footer @GetBackground()">
     <div class="time-remaining text-center @(GetTimeRemainingClass())">
         <span class="timer-countdown">@FormatTimeRemaining(timeRemaining)</span>
     </div>
@@ -58,6 +58,7 @@
 
     }
 </div>
+
 <script>
     function playAudio() {
         var audio = new Audio('sounds/beep.wav');
@@ -188,7 +189,7 @@
 
 
             }
-            catch (FeatureNotSupportedException ex)
+            catch (FeatureNotSupportedException)
             {
                 // Handle the exception if vibration is not supported on the device
                 // You can display a message or take appropriate action here

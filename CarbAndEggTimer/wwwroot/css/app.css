@@ -8,10 +8,11 @@ html, body {
 }
 
 .page {
-    display: flex;
-    flex-direction: column;  
-    min-height: 100vh; 
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Header, content, footer */
+    min-height: 100vh;
 }
+
 
 main {
     display: flex;
@@ -282,5 +283,4 @@ h1:focus {
 
 .active {
     background-color: #87CEEB; /* Light blueish background color for selected buttons */
-}
 }
